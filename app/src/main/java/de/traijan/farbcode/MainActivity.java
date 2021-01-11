@@ -1,5 +1,6 @@
 package de.traijan.farbcode;
 
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
