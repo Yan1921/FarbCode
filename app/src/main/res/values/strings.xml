@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FarbCode</string>
+    <string name="button_name">Berechnen</string>
 </resources>
