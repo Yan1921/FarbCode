@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         toleranz = getFloatArray(R.array.spinner_toleranz_values);
     }
 
+    /** Berechnet den Widerstand
+     * @param v Die View
+     */
     public void calculate(View v) {
         int[] indexes = {
             sp1.getSelectedItemPosition(),
@@ -86,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Geben Sie den Multiplikator an", Toast.LENGTH_SHORT).show();
             return;
         }
-        else if(toleranz.get(indexes[4]) == -1) {
+        else if(toleranz.get(indexes[4]) == -1 && colorRings[indexes[2]] != -1) { // Wenn die Toleranz nicht gesetzt ist, aber der 3. Farbring
             Toast.makeText(this, "Geben Sie die Toleranz an", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -99,10 +102,17 @@ public class MainActivity extends AppCompatActivity {
         else // 5 Ringe
             number = Integer.parseInt("" + colorRings[indexes[0]] + colorRings[indexes[1]] + colorRings[indexes[2]]);
 
+        // Wenn die Toleranz -1 ist (nicht gesetzt) dann setzen wir sie auf 0 (Nur 3 Ringe), ansonsten ist sie dann der eigentliche Wert
+        float tol = toleranz.get(indexes[4]) == -1 ? 0 : toleranz.get(indexes[4]);
+
         number *= multiplicator.get(indexes[3]);
-        tvOutput.setText("" + number + " ± " + toleranz.get(indexes[4]) + "%");
+        tvOutput.setText("" + number + " ± " + tol + "%");
     }
 
+    /** Erstellt aus der angebenen ID eine Float List
+     * @param id Der Name des Array Values
+     * @return Die Float List
+     */
     List<Float> getFloatArray(int id) {
         String[] cacheString = getResources().getStringArray(id);
         List<Float> floatList = new ArrayList<Float>();
