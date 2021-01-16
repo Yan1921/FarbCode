@@ -10,12 +10,8 @@
             android:layout_width="@dimen/spinner_width"
             android:layout_height="wrap_content" android:id="@+id/sp_1"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toStartOf="@+id/sp_2"
-            android:layout_marginTop="332dp" android:layout_marginEnd="20dp" android:layout_marginRight="20dp"/>
-    <Spinner
-            android:layout_width="@dimen/spinner_width"
-            android:layout_height="wrap_content" android:id="@+id/sp_4"
-            app:layout_constraintTop_toBottomOf="@+id/sp_2" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="28dp" android:layout_marginEnd="48dp" android:layout_marginRight="48dp"/>
+            android:layout_marginTop="256dp" android:layout_marginEnd="16dp" android:layout_marginRight="16dp"
+    />
     <Spinner
             android:layout_width="@dimen/spinner_width"
             android:layout_height="wrap_content" android:id="@+id/sp_5"
@@ -26,13 +22,21 @@
             android:layout_width="@dimen/spinner_width"
             android:layout_height="wrap_content" android:id="@+id/sp_3"
             app:layout_constraintTop_toBottomOf="@+id/sp_1" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="40dp" android:layout_marginTop="28dp" android:layout_marginStart="40dp"
-            app:layout_constraintEnd_toStartOf="@+id/sp_4" app:layout_constraintHorizontal_bias="0.13"/>
+            android:layout_marginLeft="40dp" android:layout_marginTop="24dp" android:layout_marginStart="40dp"
+            app:layout_constraintEnd_toStartOf="@+id/sp_4" app:layout_constraintHorizontal_bias="0.157"
+    />
     <Spinner
             android:layout_width="@dimen/spinner_width"
             android:layout_height="wrap_content" android:id="@+id/sp_2"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="332dp" android:layout_marginEnd="48dp" android:layout_marginRight="48dp"/>
+            android:layout_marginTop="256dp" android:layout_marginEnd="52dp" android:layout_marginRight="52dp"
+    />
+    <Spinner
+            android:layout_width="@dimen/spinner_width"
+            android:layout_height="wrap_content" android:id="@+id/sp_4"
+            app:layout_constraintTop_toBottomOf="@+id/sp_2" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="24dp" android:layout_marginEnd="52dp" android:layout_marginRight="52dp"
+    />
     <TextView
             android:layout_width="287dp"
             android:layout_height="41dp" android:id="@+id/tv_output"
