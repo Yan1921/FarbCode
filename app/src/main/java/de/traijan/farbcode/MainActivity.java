@@ -1,19 +1,17 @@
 package de.traijan.farbcode;
 
-import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView tvOutput;
+    TextView ringOne, ringTwo, ringThree, ringFour, ringFifth;
     Spinner sp1, sp2, sp3, sp4, sp5;
     Button button;
 
@@ -33,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
         sp4 = findViewById(R.id.sp_4);
         sp5 = findViewById(R.id.sp_5);
         button = findViewById(R.id.button);
+
+        ringOne = findViewById(R.id.ringOne);
+        ringTwo = findViewById(R.id.ringTwo);
+        ringThree = findViewById(R.id.ringThree);
+        ringFour = findViewById(R.id.ringFour);
+        ringFifth = findViewById(R.id.ringFifth);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
                 this, R.array.spinner_1_text, android.R.layout.simple_spinner_item);
@@ -59,9 +63,15 @@ public class MainActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp5.setAdapter(adapter5);
 
+        sp1.setOnItemSelectedListener(this);
+        sp2.setOnItemSelectedListener(this);
+        sp3.setOnItemSelectedListener(this);
+        sp4.setOnItemSelectedListener(this);
+        sp5.setOnItemSelectedListener(this);
+
         colorRings = getResources().getIntArray(R.array.spinner_1_values);
-        multiplicator = getFloatArray(R.array.spinner_multi_values);
-        toleranz = getFloatArray(R.array.spinner_toleranz_values);
+        multiplicator = getFloatList(R.array.spinner_multi_values);
+        toleranz = getFloatList(R.array.spinner_toleranz_values);
     }
 
     /** Berechnet den Widerstand
@@ -113,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
      * @param id Der Name des Array Values
      * @return Die Float List
      */
-    List<Float> getFloatArray(int id) {
+    List<Float> getFloatList(int id) {
         String[] cacheString = getResources().getStringArray(id);
         List<Float> floatList = new ArrayList<Float>();
 
@@ -121,5 +131,77 @@ public class MainActivity extends AppCompatActivity {
             floatList.add(Float.parseFloat(s));
 
         return floatList;
+    }
+
+    public void drawRect(TextView t, String color) {
+        switch(color.toLowerCase()){
+            case "schwarz":
+            case "black":
+                t.setBackgroundColor(Color.rgb(0, 0, 0));
+                break;
+            case "braun":
+            case "brown":
+                t.setBackgroundColor(Color.rgb(74, 72, 45));
+                break;
+            case "rot":
+            case "red":
+                t.setBackgroundColor(Color.rgb(255, 0, 0));
+                break;
+            case "orange":
+                t.setBackgroundColor(Color.rgb(245, 178, 44));
+                break;
+            case "gelb":
+            case "yellow":
+                t.setBackgroundColor(Color.rgb(245, 225, 44));
+                break;
+            case "grün":
+            case "green":
+                t.setBackgroundColor(Color.rgb(0, 255, 0));
+                break;
+            case "blau":
+            case "blue":
+                t.setBackgroundColor(Color.rgb(0, 0, 255));
+                break;
+            case "violett":
+                t.setBackgroundColor(Color.rgb(136, 0, 255));
+                break;
+            case "grau":
+            case "gray":
+                t.setBackgroundColor(Color.rgb(100, 100, 100));
+                break;
+            case "weiß":
+            case "white":
+                t.setBackgroundColor(Color.rgb(255, 255, 255));
+                break;
+            case "gold":
+                t.setBackgroundColor(Color.rgb(212, 175, 55));
+                break;
+            case "silber":
+            case "silver":
+                t.setBackgroundColor(Color.rgb(192, 206, 206));
+                break;
+            default:
+                t.setBackgroundColor(Color.argb(0, 0, 0, 0));
+                break;
+        }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        if(adapterView == sp1)
+            drawRect(ringOne, (String)adapterView.getItemAtPosition(i));
+        else if(adapterView == sp2)
+            drawRect(ringTwo, (String)adapterView.getItemAtPosition(i));
+        else if(adapterView == sp3)
+            drawRect(ringThree, (String)adapterView.getItemAtPosition(i));
+        else if(adapterView == sp4)
+            drawRect(ringFour, (String)adapterView.getItemAtPosition(i));
+        else if(adapterView == sp5)
+            drawRect(ringFifth, (String)adapterView.getItemAtPosition(i));
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }
