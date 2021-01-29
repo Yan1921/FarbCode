@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         float tol = toleranz.get(indexes[4]) == -1 ? 0 : toleranz.get(indexes[4]);
 
         number *= multiplicator.get(indexes[3]);
-        tvOutput.setText("" + number + " ± " + tol + "%");
+        tvOutput.setText("" + formatNumber(number) + " ± " + tol + "%");
     }
 
     /** Erstellt aus der angebenen ID eine Float List
@@ -184,6 +184,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 t.setBackgroundColor(Color.argb(0, 0, 0, 0));
                 break;
         }
+    }
+
+    // https://stackoverflow.com/questions/41859525/how-to-go-about-formatting-1200-to-1-2k-in-android-studio
+    public static String formatNumber(long count) {
+        if (count < 1000) return "" + count;
+        int exp = (int) (Math.log(count) / Math.log(1000));
+        return String.format("%.1f %c", count / Math.pow(1000, exp),"kMGTPE".charAt(exp-1));
     }
 
     @Override
