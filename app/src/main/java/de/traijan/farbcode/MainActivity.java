@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.silver));
                 break;
             default:
-                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.transparent));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.transparent)); //
                 break;
         }
     }
