@@ -2,9 +2,9 @@
     <string name="app_name">FarbCode</string>
     <string name="button_name">Calculate</string>
 
-    <string name="chooseFirstColorRing">Geben Sie den 1. Farbring an</string>
-    <string name="chooseSecondColorRing">Geben Sie den 2. Farbring an</string>
-    <string name="chooseMultiplicator">Geben Sie den Multiplikator an</string>
-    <string name="chooseToleranz">Geben Sie die Toleranz an</string>
+    <string name="chooseFirstColorRing">Enter the value for the 1. Ring</string>
+    <string name="chooseSecondColorRing">Enter the value for the 2. Ring</string>
+    <string name="chooseMultiplicator">Enter the multiplier</string>
+    <string name="chooseToleranz">Enter the tolerance</string>
     <string name="result">%s ± %s</string>
 </resources>
