@@ -1,10 +1,10 @@
 package de.traijan.farbcode;
 
-import android.graphics.Color;
 import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView tvOutput;
     TextView ringOne, ringTwo, ringThree, ringFour, ringFifth;
-    Spinner sp1, sp2, sp3, sp4, sp5;
+    Spinner sp1, sp2, sp3, spMulti, spToleranz;
     Button button;
 
     int[] colorRings;
@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         sp1 = findViewById(R.id.sp_1);
         sp2 = findViewById(R.id.sp_2);
         sp3 = findViewById(R.id.sp_3);
-        sp4 = findViewById(R.id.sp_4);
-        sp5 = findViewById(R.id.sp_5);
+        spMulti = findViewById(R.id.sp_4);
+        spToleranz = findViewById(R.id.sp_5);
         button = findViewById(R.id.button);
 
         ringOne = findViewById(R.id.ringOne);
@@ -38,36 +38,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ringFour = findViewById(R.id.ringFour);
         ringFifth = findViewById(R.id.ringFifth);
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                this, R.array.spinner_1_text, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp1.setAdapter(adapter);
-
-        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(
-                this, R.array.spinner_2_text, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp2.setAdapter(adapter1);
-
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
-                this, R.array.spinner_3_text, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp3.setAdapter(adapter2);
-
-        ArrayAdapter<CharSequence> adapter4 = ArrayAdapter.createFromResource(
-                this, R.array.spinner_multi_text, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp4.setAdapter(adapter4);
-
-        ArrayAdapter<CharSequence> adapter5 = ArrayAdapter.createFromResource(
-                this, R.array.spinner_toleranz_text, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp5.setAdapter(adapter5);
-
-        sp1.setOnItemSelectedListener(this);
-        sp2.setOnItemSelectedListener(this);
-        sp3.setOnItemSelectedListener(this);
-        sp4.setOnItemSelectedListener(this);
-        sp5.setOnItemSelectedListener(this);
+        setSpinner(sp1, R.array.spinner_1_text);
+        setSpinner(sp2, R.array.spinner_2_text);
+        setSpinner(sp3, R.array.spinner_3_text);
+        setSpinner(spMulti, R.array.spinner_multi_text);
+        setSpinner(spToleranz, R.array.spinner_toleranz_text);
 
         colorRings = getResources().getIntArray(R.array.spinner_1_values);
         multiplicator = getFloatList(R.array.spinner_multi_values);
@@ -82,25 +57,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             sp1.getSelectedItemPosition(),
             sp2.getSelectedItemPosition(),
             sp3.getSelectedItemPosition(),
-            sp4.getSelectedItemPosition(),
-            sp5.getSelectedItemPosition()
+            spMulti.getSelectedItemPosition(),
+            spToleranz.getSelectedItemPosition()
         };
 
         // -1 ist der Name des Rings selber, quasi wie nichts gesetzt.
         if(colorRings[indexes[0]] == -1) {
-            Toast.makeText(this, "Geben Sie den 1. Farbring an", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.chooseFirstColorRing), Toast.LENGTH_SHORT).show();
             return;
         }
         else if(colorRings[indexes[1]] == -1) {
-            Toast.makeText(this, "Geben Sie den 2. Farbring an", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.chooseSecondColorRing), Toast.LENGTH_SHORT).show();
             return;
         }
         else if(multiplicator.get(indexes[3]) == -1) {
-            Toast.makeText(this, "Geben Sie den Multiplikator an", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.chooseMultiplicator), Toast.LENGTH_SHORT).show();
             return;
         }
         else if(toleranz.get(indexes[4]) == -1 && colorRings[indexes[2]] != -1) { // Wenn die Toleranz nicht gesetzt ist, aber der 3. Farbring
-            Toast.makeText(this, "Geben Sie die Toleranz an", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.chooseToleranz), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -116,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         float tol = toleranz.get(indexes[4]) == -1 ? 0 : toleranz.get(indexes[4]);
 
         number *= multiplicator.get(indexes[3]);
-        tvOutput.setText("" + formatNumber(number) + " ± " + tol + "%");
+        tvOutput.setText(String.format(getString(R.string.result), formatNumber(number), "" + tol) + "%");
     }
 
     /** Erstellt aus der angebenen ID eine Float List
@@ -137,60 +112,67 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         switch(color.toLowerCase()){
             case "schwarz":
             case "black":
-                t.setBackgroundColor(Color.rgb(0, 0, 0));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.black));
                 break;
             case "braun":
             case "brown":
-                t.setBackgroundColor(Color.rgb(74, 72, 45));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.brown));
                 break;
             case "rot":
             case "red":
-                t.setBackgroundColor(Color.rgb(255, 0, 0));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.red));
                 break;
             case "orange":
-                t.setBackgroundColor(Color.rgb(245, 178, 44));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.orange));
                 break;
             case "gelb":
             case "yellow":
-                t.setBackgroundColor(Color.rgb(245, 225, 44));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.yellow));
                 break;
             case "grün":
             case "green":
-                t.setBackgroundColor(Color.rgb(0, 255, 0));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.green));
                 break;
             case "blau":
             case "blue":
-                t.setBackgroundColor(Color.rgb(0, 0, 255));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.blue));
                 break;
             case "violett":
-                t.setBackgroundColor(Color.rgb(136, 0, 255));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.violett));
                 break;
             case "grau":
             case "gray":
-                t.setBackgroundColor(Color.rgb(100, 100, 100));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.gray));
                 break;
             case "weiß":
             case "white":
-                t.setBackgroundColor(Color.rgb(255, 255, 255));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
                 break;
             case "gold":
-                t.setBackgroundColor(Color.rgb(212, 175, 55));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.gold));
                 break;
             case "silber":
             case "silver":
-                t.setBackgroundColor(Color.rgb(192, 206, 206));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.silver));
                 break;
             default:
-                t.setBackgroundColor(Color.argb(0, 0, 0, 0));
+                t.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.transparent));
                 break;
         }
     }
 
-    // https://stackoverflow.com/questions/41859525/how-to-go-about-formatting-1200-to-1-2k-in-android-studio
-    public static String formatNumber(long count) {
+    public static String formatNumber(long count) { // TPE
         if (count < 1000) return "" + count;
         int exp = (int) (Math.log(count) / Math.log(1000));
-        return String.format("%.1f %c", count / Math.pow(1000, exp),"kMGTPE".charAt(exp-1));
+        return String.format("%.1f %c", count / Math.pow(1000, exp),"kMG".charAt(exp-1));
+    }
+
+    public void setSpinner(Spinner sp, int textArrayId) {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                this, textArrayId, R.layout.spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sp.setAdapter(adapter);
+        sp.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -201,9 +183,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             drawRect(ringTwo, (String)adapterView.getItemAtPosition(i));
         else if(adapterView == sp3)
             drawRect(ringThree, (String)adapterView.getItemAtPosition(i));
-        else if(adapterView == sp4)
+        else if(adapterView == spMulti)
             drawRect(ringFour, (String)adapterView.getItemAtPosition(i));
-        else if(adapterView == sp5)
+        else if(adapterView == spToleranz)
             drawRect(ringFifth, (String)adapterView.getItemAtPosition(i));
     }
 

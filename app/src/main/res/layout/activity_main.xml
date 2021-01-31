@@ -10,7 +10,7 @@
             android:layout_width="@dimen/spinner_width"
             android:layout_height="wrap_content" android:id="@+id/sp_1"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toStartOf="@+id/sp_2"
-            android:layout_marginTop="256dp" android:layout_marginEnd="16dp" android:layout_marginRight="16dp"
+            android:layout_marginTop="300dp" android:layout_marginEnd="16dp" android:layout_marginRight="16dp"
     />
     <Spinner
             android:layout_width="@dimen/spinner_width"
@@ -29,7 +29,7 @@
             android:layout_width="@dimen/spinner_width"
             android:layout_height="wrap_content" android:id="@+id/sp_2"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="256dp" android:layout_marginEnd="52dp" android:layout_marginRight="52dp"
+            android:layout_marginTop="300dp" android:layout_marginEnd="52dp" android:layout_marginRight="52dp"
     />
     <Spinner
             android:layout_width="@dimen/spinner_width"
@@ -57,7 +57,7 @@
             android:layout_height="56dp" android:id="@+id/resistance"
             app:layout_constraintBottom_toTopOf="@+id/sp_1"
             app:layout_constraintTop_toBottomOf="@+id/tv_output" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:background="#7E5050"/>
+            app:layout_constraintStart_toStartOf="parent" android:background="@color/resistorColor"/>
     <TextView
             android:layout_width="15dp"
             android:layout_height="56dp" android:id="@+id/ringOne"
